@@ -2,22 +2,29 @@ package br.edu.iff.dominio.tema;
 
 public class Tema {
     private String nome;
+   
 
-    public criar (long id, String nome){
-        this.setNome(nome);
+
+    public Tema(long id, String nome) {
+          super();
+          this.setNome(nome);
+      
+    }
+
+    public Tema criar (long id, String nome){
+        return new Tema(id, nome);
     }
 
 
-    public reconstituir(long id, String nome){
-        return null;
+    public Tema reconstituir(long id, String nome){
+      return new Tema(id, nome);
 
     
     }
 
-    public Tema(long id, String nome) {
-        this.nome = nome;
-        this.id= id;
-    }
+   public String getNome() {
+       return nome;
+   }
 
     public void setNome(String nome) {
         if (nome == null || nome.trim().isEmpty()){
