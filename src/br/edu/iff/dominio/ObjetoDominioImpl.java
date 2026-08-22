@@ -1,4 +1,5 @@
 package br.edu.iff.dominio;
+import br.edu.iff.dominio.ObjetoDominio;
 
 public abstract class ObjetoDominioImpl implements ObjetoDominio{
 	private long id;
@@ -10,6 +11,4 @@ public abstract class ObjetoDominioImpl implements ObjetoDominio{
 	public long getId() {
 		return this.id;
 	}
-	
-
 }
