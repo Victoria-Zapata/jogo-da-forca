@@ -4,12 +4,12 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.palavra.Palavra;
 
 public class Item extends ObjetoDominioImpl {
-    private int id;
+    private long id;
     private Palavra palavra;
     private boolean[] posicoesDescobertas;
     private String palavraArriscada = null;
 
-    private Item(int id, Palavra palavra) {
+    private Item(long id, Palavra palavra) {
         super(id);
         if (palavra == null) {
             throw new IllegalArgumentException("A palavra não pode ser uma string nula.");
@@ -22,7 +22,7 @@ public class Item extends ObjetoDominioImpl {
         this.posicoesDescobertas = new boolean[palavra.getTamanho()];
     }
 
-    private Item(int id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
+    private Item(long id, Palavra palavra, int[] posicoesDescobertas, String palavraArriscada) {
         super(id);
         if (palavra == null) {
             throw new IllegalArgumentException("A palavra não pode ser uma string nula.");

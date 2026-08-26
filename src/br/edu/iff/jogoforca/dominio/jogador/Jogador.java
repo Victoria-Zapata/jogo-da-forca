@@ -4,7 +4,7 @@ import br.edu.iff.dominio.ObjetoDominioImpl;
 
 public class Jogador extends ObjetoDominioImpl{
 	private String nome;
-	private int pontuacao = 0;
+	private int pontuacao;
 	
 	//construtor para criar um jogador NOVO
 	private Jogador(long id, String nome) {

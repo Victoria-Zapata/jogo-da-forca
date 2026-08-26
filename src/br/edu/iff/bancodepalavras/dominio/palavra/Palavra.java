@@ -42,7 +42,7 @@ public class Palavra {
     public void exibir(Object contexto, boolean[] posicoes) {
         Letra[] letras = getLetras();
         for (int i = 0; i < letras.length; i++) {
-            if (posicoes == null || posicoes [i]) {
+            if (posicoes == null || posicoes[i]) {
                 letras[i].exibir(contexto);
             } else {
                 letraFactory.getLetraEncoberta().exibir(contexto);
