@@ -20,11 +20,11 @@ public class Jogador extends ObjetoDominioImpl{
 		this.pontuacao = pontuacao;
 	}
 	
-	public Jogador criar(long id, String nome) {
+	public static Jogador criar(long id, String nome) {
 		return new Jogador(id, nome);
 	}
 	
-	public Jogador reconstituir(long id, String nome, int pontuacao) {
+	public static Jogador reconstituir(long id, String nome, int pontuacao) {
 		return new Jogador(id, nome, pontuacao);
 	}
 	
