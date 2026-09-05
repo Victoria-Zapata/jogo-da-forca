@@ -4,16 +4,14 @@ import br.edu.iff.bancodepalavras.dominio.letra.Letra;
 import br.edu.iff.bancodepalavras.dominio.letra.LetraFactoryImpl;
 
 public class LetraImagemFactory extends LetraFactoryImpl{
-private static LetraImagemFactory soleInstance;
+	private static LetraImagemFactory soleInstance;
 	
 	public static LetraImagemFactory getSoleInstance() {
 		if(soleInstance != null) {
 			return soleInstance;
 		}
-		else {
-			soleInstance = new LetraImagemFactory();
-			return soleInstance;
-		}
+		soleInstance = new LetraImagemFactory();
+		return soleInstance;
 	}
 	
 	private LetraImagemFactory() {

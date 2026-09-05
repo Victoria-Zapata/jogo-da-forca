@@ -10,10 +10,8 @@ public class LetraTextoFactory extends LetraFactoryImpl{
 		if(soleInstance != null) {
 			return soleInstance;
 		}
-		else {
-			soleInstance = new LetraTextoFactory();
-			return soleInstance;
-		}
+		soleInstance = new LetraTextoFactory();
+		return soleInstance;
 	}
 	
 	private LetraTextoFactory() {

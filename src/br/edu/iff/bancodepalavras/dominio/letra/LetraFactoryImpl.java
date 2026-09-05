@@ -18,10 +18,8 @@ public abstract class LetraFactoryImpl implements LetraFactory {
 		if(pool[i] != null) {
 			return pool[i];
 		}
-		else {
-			pool[i] = criarLetra(codigo);
-			return pool[i];
-		}
+		pool[i] = criarLetra(codigo);
+		return pool[i];
 		
 	}
 	@Override
@@ -29,10 +27,8 @@ public abstract class LetraFactoryImpl implements LetraFactory {
 		if(this.encoberta != null) {
 			return this.encoberta;
 		}
-		else {
-			this.encoberta = criarLetra('_');
-			return this.encoberta;
-		}
+		this.encoberta = criarLetra('_');
+		return this.encoberta;
 	}
 	
 	protected abstract Letra criarLetra(char codigo);
