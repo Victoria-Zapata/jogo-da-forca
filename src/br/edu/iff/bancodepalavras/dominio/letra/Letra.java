@@ -14,7 +14,9 @@ public abstract class Letra {
 	public abstract void exibir(Object contexto);
 	
 	public boolean equals(Object o) {
-		if (!(o instanceof Letra)) return false;
+		if (!(o instanceof Letra)) {
+			return false;
+		}
 	    Letra outra = (Letra) o; //typecast
 	    return this.codigo == outra.codigo && this.getClass().equals(outra.getClass());
 	     
