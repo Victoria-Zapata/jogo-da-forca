@@ -13,7 +13,11 @@ public abstract class LetraFactoryImpl implements LetraFactory {
 	public final Letra getLetra(char codigo) {
 		codigo = Character.toLowerCase(codigo);
 		
-		int i = codigo - 'a'; //vadidacao maior q z 
+		if (codigo < 'a' || codigo > 'z') {
+	        throw new IllegalArgumentException("Caractere inválido!");
+	    }
+		
+		int i = codigo - 'a';
 		
 		if(pool[i] != null) {
 			return pool[i];
