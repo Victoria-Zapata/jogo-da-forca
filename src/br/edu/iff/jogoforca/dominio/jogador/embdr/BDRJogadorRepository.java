@@ -8,7 +8,10 @@ public class BDRJogadorRepository implements JogadorRepository{
 	private static BDRJogadorRepository soleInstance;
 	
 	public static BDRJogadorRepository getSoleInstance() {
-		return null;
+		if(soleInstance == null) {
+			soleInstance = new BDRJogadorRepository();
+		}
+		return soleInstance;
 	}
 
 	private BDRJogadorRepository() {
