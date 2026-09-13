@@ -12,7 +12,7 @@ public class Rodada extends ObjetoDominioImpl {
     private static int pontosPorLetraEncoberta = 15;
     private static int pontosQuandoDescobreTodasAsPalavras = 100;
 
-    private Rodada(long id, Palavra[] palavras, Jogador jogador){
+    Rodada(long id, Palavra[] palavras, Jogador jogador){
         super(id);
         if (palavras == null) {
             throw new IllegalArgumentException("A rodada precisa ter palavras sorteadas.");

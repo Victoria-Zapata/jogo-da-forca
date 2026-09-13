@@ -8,7 +8,7 @@ public class BonecoImagemFactory implements BonecoFactory {
     private BonecoImagemFactory(){
     }
 
-    public BonecoImagemFactory getSoleInstance(){
+    public static  BonecoImagemFactory getSoleInstance(){
         if (soleInstance == null) {
             soleInstance = new BonecoImagemFactory();
         }
@@ -17,6 +17,6 @@ public class BonecoImagemFactory implements BonecoFactory {
 
     @Override
     public Boneco getBoneco() {
-        return null;
+        return BonecoImagem.getSoleInstance();
     }
 }

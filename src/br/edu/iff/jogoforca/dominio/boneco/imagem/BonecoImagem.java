@@ -2,7 +2,7 @@ package br.edu.iff.jogoforca.dominio.boneco.imagem;
 import br.edu.iff.jogoforca.dominio.boneco.Boneco;
 
 public class BonecoImagem implements Boneco {
-    private static BonecoImagem soleInstance;
+    private static BonecoImagem soleInstance; //singleton, principio de so uma insstancia
 
     private BonecoImagem() {
     }

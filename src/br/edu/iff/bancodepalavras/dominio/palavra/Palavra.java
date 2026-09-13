@@ -10,7 +10,7 @@ public class Palavra {
     private Tema tema;
     private static LetraFactory letraFactory;
 
-    private Palavra(long id, String palavra, Tema tema) {
+    Palavra(long id, String palavra, Tema tema) {
         this.id = id;
         this.palavra = palavra;
         this.tema = tema;
@@ -18,6 +18,10 @@ public class Palavra {
         if(letraFactory == null) {
             throw new IllegalStateException("A letraFactory precisa estar configurada para criar uma palavra.");
         }
+    }
+
+    public long getId() {
+        return id;
     }
 
     public Letra[] getLetras(){
