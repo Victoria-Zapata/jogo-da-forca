@@ -8,7 +8,7 @@ public class BDRJogadorRepository implements JogadorRepository{
 	private static BDRJogadorRepository soleInstance;
 	
 	public static BDRJogadorRepository getSoleInstance() {
-		return null;
+		return null; //implementar singleton
 	}
 
 	private BDRJogadorRepository() {
