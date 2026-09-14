@@ -1,4 +1,5 @@
 package br.edu.iff.jogoforca.dominio.rodada;
+
 import br.edu.iff.bancodepalavras.dominio.palavra.Palavra;
 import br.edu.iff.dominio.ObjetoDominioImpl;
 import br.edu.iff.jogoforca.dominio.boneco.Boneco;
@@ -12,11 +13,21 @@ public class Rodada extends ObjetoDominioImpl {
     private static int pontosPorLetraEncoberta = 15;
     private static int pontosQuandoDescobreTodasAsPalavras = 100;
 
-    Rodada(long id, Palavra[] palavras, Jogador jogador){
+    private Jogador jogador;
+
+    Rodada(long id, Palavra[] palavras, Jogador jogador) {
         super(id);
         if (palavras == null) {
             throw new IllegalArgumentException("A rodada precisa ter palavras sorteadas.");
         }
+        if (jogador == null) {
+            throw new IllegalArgumentException("A rodada precisa ter um jogador.");
+        }
+        this.jogador = jogador;
+    }
+
+    public Jogador getJogador() {
+        return this.jogador;
     }
 
     public static void setBonecoFactory(BonecoFactory bonecoFactory) {

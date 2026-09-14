@@ -1,4 +1,61 @@
 package br.edu.iff.jogoforca.dominio.rodada;
 
+import java.util.Objects;
+
+import br.edu.iff.jogoforca.dominio.jogador.Jogador;
+import br.edu.iff.jogoforca.dominio.jogador.JogadorNaoEncontradoException;
+import br.edu.iff.jogoforca.dominio.jogador.JogadorRepository;
+import br.edu.iff.repository.RepositoryException;
+
 public class RodadaAppService {
+
+    private final RodadaFactory rodadaFactory;
+    private final RodadaRepository rodadaRepository;
+    private final JogadorRepository jogadorRepository;
+    
+    private static RodadaAppService soleInstance = null;
+
+    public static void createSoleInstance(RodadaFactory rodadaFactory, RodadaRepository rodadaRepository, JogadorRepository jogadorRepository) {
+        if (soleInstance == null) {
+            soleInstance = new RodadaAppService(rodadaFactory, rodadaRepository, jogadorRepository);
+        }
+    }
+
+    public static RodadaAppService getSoleInstance() {
+        return soleInstance;
+    }
+
+    private RodadaAppService(RodadaFactory rodadaFactory, RodadaRepository rodadaRepository, JogadorRepository jogadorRepository) {
+        Objects.requireNonNull(rodadaFactory);
+        Objects.requireNonNull(rodadaRepository);
+        Objects.requireNonNull(jogadorRepository);
+
+        this.rodadaFactory = rodadaFactory;
+        this.rodadaRepository = rodadaRepository;
+        this.jogadorRepository = jogadorRepository;
+    }
+
+    public Rodada novaRodada(long idJogador) {
+        Jogador jogador = jogadorRepository.getPorId(idJogador);
+        return rodadaFactory.getRodada(jogador);
+    }
+
+    public Rodada novaRodada(String nomeJogador) throws JogadorNaoEncontradoException {
+        Jogador jogador = jogadorRepository.getPorNome(nomeJogador);
+
+        if (jogador == null) {
+            throw new JogadorNaoEncontradoException(nomeJogador);
+        }
+
+        return rodadaFactory.getRodada(jogador);
+    }
+
+    public boolean salvarRodada(Rodada rodada) {
+        try {
+            rodadaRepository.inserir(rodada);
+            return true;
+        } catch (RepositoryException e) {
+            return false;
+        }
+    }
 }
