@@ -8,6 +8,7 @@ import br.edu.iff.jogoforca.RepositoryFactory;
 import br.edu.iff.jogoforca.dominio.jogador.JogadorRepository;
 import br.edu.iff.jogoforca.dominio.jogador.emmemoria.MemoriaJogadorRepository;
 import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
+import br.edu.iff.jogoforca.dominio.rodada.emmemoria.MemoriaRodadaRepository;
 
 public class MemoriaRepositoryFactory implements RepositoryFactory {
     private static MemoriaRepositoryFactory soleInstance;
@@ -17,10 +18,9 @@ public class MemoriaRepositoryFactory implements RepositoryFactory {
 
     public static MemoriaRepositoryFactory getSoleInstance() {
         if (soleInstance == null) {
-            return soleInstance = new MemoriaRepositoryFactory();
-        } else {
-            return soleInstance;
+            soleInstance = new MemoriaRepositoryFactory();
         }
+        return soleInstance;
     }
 
     @Override
