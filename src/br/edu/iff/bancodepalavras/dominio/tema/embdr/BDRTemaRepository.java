@@ -5,6 +5,20 @@ import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
 import br.edu.iff.repository.RepositoryException;
 
 public class BDRTemaRepository implements TemaRepository {
+    private static BDRTemaRepository soleInstance;
+
+    private BDRTemaRepository() {
+
+    }
+
+    public static TemaRepository getSoleInstance() {
+        if (soleInstance == null) {
+            return soleInstance = new BDRTemaRepository();
+        } else {
+            return soleInstance;
+        }
+    }
+
     @Override
     public Tema getPorId(long id) {
         return null;
@@ -12,7 +26,7 @@ public class BDRTemaRepository implements TemaRepository {
 
     @Override
     public Tema getPorNome(String nome) {
-        return new Tema[0];
+        return null;
     }
 
     @Override
