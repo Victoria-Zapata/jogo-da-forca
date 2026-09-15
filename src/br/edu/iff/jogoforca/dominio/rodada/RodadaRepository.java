@@ -14,3 +14,4 @@ public interface RodadaRepository extends Repository {
     public void atualizar(Rodada rodada) throws RepositoryException;
     public void remover(Rodada rodada) throws RepositoryException;
 }
+

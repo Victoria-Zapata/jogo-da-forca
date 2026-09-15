@@ -18,10 +18,9 @@ public class BDRRepositoryFactory implements RepositoryFactory {
 
     public static BDRRepositoryFactory getSoleInstance() {
         if (soleInstance == null) {
-            return soleInstance = new BDRRepositoryFactory();
-        } else {
-            return soleInstance;
+            soleInstance = new BDRRepositoryFactory();
         }
+        return soleInstance;
     }
 
     @Override

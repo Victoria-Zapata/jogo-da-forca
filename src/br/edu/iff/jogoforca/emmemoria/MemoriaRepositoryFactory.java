@@ -18,10 +18,9 @@ public class MemoriaRepositoryFactory implements RepositoryFactory {
 
     public static MemoriaRepositoryFactory getSoleInstance() {
         if (soleInstance == null) {
-            return soleInstance = new MemoriaRepositoryFactory();
-        } else {
-            return soleInstance;
+            soleInstance = new MemoriaRepositoryFactory();
         }
+        return soleInstance;
     }
 
     @Override
