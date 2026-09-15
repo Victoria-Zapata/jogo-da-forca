@@ -1,41 +1,38 @@
 package br.edu.iff.bancodepalavras.dominio.tema.emmemoria;
 
-import br.edu.iff.bancodepalavras.dominio.palavra.Palavra;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.bancodepalavras.dominio.tema.TemaRepository;
 import br.edu.iff.repository.RepositoryException;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class MemoriaTemaRepository implements TemaRepository {
     private static MemoriaTemaRepository soleInstance;
-    private List<Tema> pool;
+    private HashMap<Long, Tema> pool;
 
     private MemoriaTemaRepository() {
+        // Inicializa o mapa para evitar NullPointerException
+        this.pool = new HashMap<>();
     }
 
     public static MemoriaTemaRepository getSoleInstance() {
         if (soleInstance == null) {
-            return soleInstance = new MemoriaTemaRepository();
-        } else {
-            return soleInstance;
+            soleInstance = new MemoriaTemaRepository();
         }
+        return soleInstance;
     }
 
     @Override
     public Tema getPorId(long id) {
-        for (Tema temaAtual : this.pool) {
-            if (temaAtual.getId() == id) {
-                return temaAtual;
-            }
-        }
-        return null;
+        // Com HashMap, a busca por ID é direta e eficiente pela chave
+        return this.pool.get(id);
     }
 
     @Override
     public Tema getPorNome(String nome) {
-        for (Tema temaAtual : this.pool) {
+        // Itera sobre os valores do mapa para buscar pelo nome
+        for (Tema temaAtual : this.pool.values()) {
             if (Objects.equals(temaAtual.getNome(), nome)) {
                 return temaAtual;
             }
@@ -45,34 +42,32 @@ public class MemoriaTemaRepository implements TemaRepository {
 
     @Override
     public Tema[] getTodos() {
-        return this.pool.toArray(new Tema[0]);
+        // Retorna todos os valores do mapa convertidos para array
+        return this.pool.values().toArray(new Tema[0]);
     }
 
     @Override
     public void inserir(Tema tema) throws RepositoryException {
-        if (getPorId(tema.getId()) != null) {
-            throw new RepositoryException();
+        if (this.pool.containsKey(tema.getId())) {
+            throw new RepositoryException("Tema com ID " + tema.getId() + " já existe.");
         }
-        this.pool.add(tema);
+        this.pool.put(tema.getId(), tema);
     }
 
     @Override
     public void atualizar(Tema tema) throws RepositoryException {
-        Tema temaAntigo = getPorId(tema.getId());
-        if (temaAntigo == null) {
-            throw new RepositoryException();
+        if (!this.pool.containsKey(tema.getId())) {
+            throw new RepositoryException("Tema com ID " + tema.getId() + " não encontrado para atualização.");
         }
-
-        int indice = this.pool.indexOf(temaAntigo);
-        this.pool.set(indice, tema);
+        this.pool.put(tema.getId(), tema);
     }
 
     @Override
     public void remover(Tema tema) throws RepositoryException {
-        if (getPorId(tema.getId()) == null) {
-            throw new RepositoryException();
+        if (tema == null || !this.pool.containsKey(tema.getId())) {
+            throw new RepositoryException("Tema não encontrado para remoção.");
         }
-        this.pool.remove(tema);
+        this.pool.remove(tema.getId());
     }
 
     @Override
@@ -80,6 +75,12 @@ public class MemoriaTemaRepository implements TemaRepository {
         if (this.pool.isEmpty()) {
             return 1;
         }
-        return this.pool.get(this.pool.size() - 1).getId() + 1;
+        long maxId = 0;
+        for (Long id : this.pool.keySet()) {
+            if (id > maxId) {
+                maxId = id;
+            }
+        }
+        return maxId + 1;
     }
 }

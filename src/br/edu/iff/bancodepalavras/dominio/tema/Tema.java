@@ -4,11 +4,7 @@ import br.edu.iff.dominio.ObjetoDominioImpl;
 
 public class Tema extends ObjetoDominioImpl {
     private String nome;
-    private long id;
 
-    public long getId() {
-        return id;
-    }
 
     Tema(long id, String nome) {
           super(id);

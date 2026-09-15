@@ -6,48 +6,51 @@ import br.edu.iff.jogoforca.dominio.rodada.RodadaRepository;
 import br.edu.iff.repository.RepositoryException;
 
 public class BDRRodadaRepository implements RodadaRepository {
+    private static BDRRodadaRepository soleInstance;
 
-	// Singleton
-	private static BDRRodadaRepository soleInstance = null;
+    private BDRRodadaRepository() {
+    }
 
-	private BDRRodadaRepository() {
+    public static RodadaRepository getSoleInstance() {
+        if (soleInstance == null) {
+            return soleInstance = new BDRRodadaRepository();
+        } else {
+            return soleInstance;
+        }
+    }
 
-	}
+    @Override
+    public Rodada getPorId(long id) {
+        return null;
+    }
 
-	public static BDRRodadaRepository getSoleInstance() {
-		if (soleInstance == null) {
-			soleInstance = new BDRRodadaRepository();
-		}
-		return soleInstance;
-	}
+    @Override
+    public Rodada[] getPorJogador(Jogador jogador) {
+        return new Rodada[0];
+    }
 
-	@Override
-	public long getProximoId() {
-		return 0;
-	}
+    @Override
+    public Rodada[] getTodas() {
+        return new Rodada[0];
+    }
 
-	@Override
-	public Rodada getPorId(long id) {
-		return null;
-	}
+    @Override
+    public void inserir(Rodada rodada) throws RepositoryException {
 
-	@Override
-	public Rodada[] getPorJogador(Jogador jogador) {
-		return new Rodada[0];
-	}
+    }
 
-	@Override
-	public void inserir(Rodada rodada) throws RepositoryException {
+    @Override
+    public void atualizar(Rodada rodada) throws RepositoryException {
 
-	}
+    }
 
-	@Override
-	public void atualizar(Rodada rodada) throws RepositoryException {
+    @Override
+    public void remover(Rodada rodada) throws RepositoryException {
 
-	}
+    }
 
-	@Override
-	public void remover(Rodada rodada) throws RepositoryException {
-
-	}
+    @Override
+    public long getProximoId() {
+        return 0;
+    }
 }
