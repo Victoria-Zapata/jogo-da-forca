@@ -5,39 +5,46 @@ import br.edu.iff.bancodepalavras.dominio.palavra.PalavraRepository;
 import br.edu.iff.bancodepalavras.dominio.tema.Tema;
 import br.edu.iff.repository.RepositoryException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MemoriaPalavraRepository implements PalavraRepository {
     private static MemoriaPalavraRepository soleInstance;
-    private List<Palavra> pool;
-
-    private MemoriaPalavraRepository(){
-        this.pool = new ArrayList<>();
-    }
+    private Map<Long, Palavra> pool;
 
     public static MemoriaPalavraRepository getSoleInstance() {
         if (soleInstance == null) {
-            return soleInstance = new MemoriaPalavraRepository();
-        } else {
-            return soleInstance;
+            soleInstance = new MemoriaPalavraRepository();
         }
+        return soleInstance;
+    }
+
+    private MemoriaPalavraRepository() {
+        this.pool = new HashMap<>();
+    }
+
+    @Override
+    public long getProximoId() {
+        long max = 0;
+        for (Long id : this.pool.keySet()) {
+            if (id > max) {
+                max = id;
+            }
+        }
+        return max + 1;
     }
 
     @Override
     public Palavra getPorId(long id) {
-        for (Palavra palavraAtual : this.pool) {
-            if (palavraAtual.getId() == id) {
-                return palavraAtual;
-            }
-        }
-        return null;
+        return this.pool.get(id);
     }
 
     @Override
     public Palavra[] getPorTema(Tema tema) {
         List<Palavra> palavrasEncontradas = new ArrayList<>();
 
-        for (Palavra palavra : this.pool) {
+        for (Palavra palavra : this.pool.values()) {
             if (palavra.getTema().equals(tema)) {
                 palavrasEncontradas.add(palavra);
             }
@@ -48,12 +55,12 @@ public class MemoriaPalavraRepository implements PalavraRepository {
 
     @Override
     public Palavra[] getTodas() {
-        return this.pool.toArray(new Palavra[0]);
+        return this.pool.values().toArray(new Palavra[0]);
     }
 
     @Override
     public Palavra getPalavra(String palavra) {
-        for (Palavra palavraAtual : this.pool) {
+        for (Palavra palavraAtual : this.pool.values()) {
             if (palavraAtual.comparar(palavra)) {
                 return palavraAtual;
             }
@@ -64,35 +71,27 @@ public class MemoriaPalavraRepository implements PalavraRepository {
     @Override
     public void inserir(Palavra palavra) throws RepositoryException {
         if (getPorId(palavra.getId()) != null) {
-            throw new RepositoryException();
+            throw new RepositoryException("Erro: Já existe uma palavra com o ID " + palavra.getId());
         }
-        this.pool.add(palavra);
+
+        this.pool.put(palavra.getId(), palavra);
     }
 
     @Override
     public void atualizar(Palavra palavra) throws RepositoryException {
-        Palavra palavraAntiga = getPorId(palavra.getId());
-        if (palavraAntiga == null) {
-            throw new RepositoryException();
+        if (getPorId(palavra.getId()) == null) {
+            throw new RepositoryException("Erro: Palavra com ID " + palavra.getId() + " não encontrada.");
         }
 
-        int indice = this.pool.indexOf(palavraAntiga);
-        this.pool.set(indice, palavra);
+        this.pool.put(palavra.getId(), palavra);
     }
 
     @Override
     public void remover(Palavra palavra) throws RepositoryException {
         if (getPorId(palavra.getId()) == null) {
-            throw new RepositoryException();
+            throw new RepositoryException("Erro: Palavra com ID " + palavra.getId() + " não encontrada.");
         }
-        this.pool.remove(palavra);
-    }
 
-    @Override
-    public long getProximoId() {
-        if (this.pool.isEmpty()) {
-            return 1;
-        }
-        return this.pool.get(this.pool.size() - 1).getId() + 1;
+        this.pool.remove(palavra.getId());
     }
 }
